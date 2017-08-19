@@ -5,23 +5,28 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="activitydatahandler.js"></script>
 	<script src="main.js"></script>
 </head>
-<body onload="getData()">
+<body onload="init()">
 	<table>
 		<tr>
-			<td colspan="2">
+			<td>
 				<div class="bordered_div_head title_div">
-					NO WEBSITE TITLE SET
+					my activities
 				</div>
 			</td>
 		</tr>
 		<tr><td></td></tr>
 		<tr>
-			<td colspan="2">
+			<td>
 				<div class="bordered_div_head summary_div">
-					<div class="summary_header_div">summary</div>
-					<div>NO DATA <br /> <br /> MONTHLY GOAL NOT SET</div>
+					<div>
+						<span id="summaryName">UNKNOWN NAME</span>
+						<br /> <br />
+						Monthly goal:
+						<span id="monthlyGoal">#</span> total activities
+					</div>
 				</div>
 			</td>
 		</tr>
@@ -29,20 +34,25 @@
 		<div class="activity_data_container">
 		<table>
 		<tr>
-			<td width="300px">
+			<td width="450px">
 				<h1>running</h1>
-				Gear: UNKNOWN <br/><br/>
+				Gear: <span id="shoes">UNKNOWN </span><br/><br/>
 				<div class="bordered_div_activity_content">
 					NO DATA
 				</div>
 			</td>
-			<td width="10px"></td>
-			<td width="300px" height="600px">
+			<td width="30px"></td>
+			<td width="450px" height="600px">
 				<h1>cycling</h1>
-				Gear: UNKNOWN <br/><br/>
+				Gear: <span id="bike">UNKNOWN </span> <br/><br/>
 					<div class="bordered_div_activity_content">
 						NO DATA
 					</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
 			</td>
 		</tr>
 	</table>

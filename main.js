@@ -1,5 +1,6 @@
-function getData () {
-  $.getJSON( "strava_data.php", function( data ) {
-    console.log(data);
-  });
+function init() {
+  var MONTHLY_GOAL = 8;
+
+  var activityDataHandler = new ActivityDataHandler(MONTHLY_GOAL);
+  activityDataHandler.setActivityData();
 }

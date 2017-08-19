@@ -1,6 +1,8 @@
 body {
   font-family: monospace;
   color: #333333;
+  font-weight: bold;
+  font-size: 16pt;
 }
 
 h1 {
@@ -18,29 +20,24 @@ h1 {
   outline: 2px solid #1C053A;
   padding: 10px;
 
-  height: 500px;
+  height: 400px;
 }
 
 .title_div {
-  width: 600px;
+  width: 800px;
   color: #666666;
   font-size: 30pt;
   font-weight: bold;
 }
 
 .summary_div {
-  width: 600px;
-}
-
-.summary_header_div {
-  color: #666666;
-  font-size: 30pt;
-  font-weight: bold;
-  float:left;
-  margin-right:30px;
-  height: 80px;
+  width: 800px;
 }
 
 .activity_data_container {
   margin-left: 50px;
+}
+
+#monthlyGoal {
+  font-size: 38pt;
 }
