@@ -1,0 +1,46 @@
+body {
+  font-family: monospace;
+  color: #333333;
+}
+
+h1 {
+  color: #666666;
+}
+
+.bordered_div_head {
+  border: 6px solid #6B949F;
+  outline: 2px solid #1C053A;
+  padding: 10px;
+}
+
+.bordered_div_activity_content {
+  border: 6px solid #D4A36A;
+  outline: 2px solid #1C053A;
+  padding: 10px;
+
+  height: 500px;
+}
+
+.title_div {
+  width: 600px;
+  color: #666666;
+  font-size: 30pt;
+  font-weight: bold;
+}
+
+.summary_div {
+  width: 600px;
+}
+
+.summary_header_div {
+  color: #666666;
+  font-size: 30pt;
+  font-weight: bold;
+  float:left;
+  margin-right:30px;
+  height: 80px;
+}
+
+.activity_data_container {
+  margin-left: 50px;
+}
