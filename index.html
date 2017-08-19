@@ -9,53 +9,59 @@
 	<script src="main.js"></script>
 </head>
 <body onload="init()">
-	<table>
-		<tr>
-			<td>
-				<div class="bordered_div_head title_div">
-					my activities
-				</div>
-			</td>
-		</tr>
-		<tr><td></td></tr>
-		<tr>
-			<td>
-				<div class="bordered_div_head summary_div">
-					<div>
-						<span id="summaryName">UNKNOWN NAME</span>
-						<br /> <br />
-						Monthly goal:
-						<span id="monthlyGoal">#</span> total activities
-					</div>
-				</div>
-			</td>
-		</tr>
-		</table>
-		<div class="activity_data_container">
+	<div id="loading"><div style="margin-top:400px">Loading...</div></div>
 		<table>
-		<tr>
-			<td width="450px">
-				<h1>running</h1>
-				Gear: <span id="shoes">UNKNOWN </span><br/><br/>
-				<div id="running_content" class="bordered_div_activity_content">
-					NO DATA
-				</div>
-			</td>
-			<td width="30px"></td>
-			<td width="450px" height="600px">
-				<h1>cycling</h1>
-				Gear: <span id="bike">UNKNOWN </span> <br/><br/>
-					<div id="cycling_content" class="bordered_div_activity_content">
-						NO DATA
+			<tr>
+				<td>
+					<div class="title_div">
+						my activities
 					</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
-			</td>
-		</tr>
-	</table>
-</div>
+				</td>
+			</tr>
+			<tr><td></td></tr>
+			<tr>
+				<td>
+					<div class="bordered_div_head summary_div">
+						<div>
+							<span id="summaryName">UNKNOWN NAME</span>
+							<br /><br />
+							<span id="activitiesThisMonth"></span>
+							<br />
+							<span id="activitiesLastMonth"></span>
+							<br /><br />
+							<span id="activitiesThisYear"></span>
+							<br />
+							<span id="activitiesLastYear"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</table>
+			<div class="activity_data_container">
+				<table>
+				<tr>
+					<td width="450px">
+						<h1>running</h1>
+						Gear: <span id="shoes">UNKNOWN </span><br/><br/>
+						<div id="running_content" class="bordered_div_activity_content">
+							NO DATA
+						</div>
+					</td>
+					<td width="30px"></td>
+					<td width="450px" height="600px">
+						<h1>cycling</h1>
+						Gear: <span id="bike">UNKNOWN </span> <br/><br/>
+							<div id="cycling_content" class="bordered_div_activity_content">
+								NO DATA
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
+					</td>
+				</tr>
+			</table>
+		</div>
 </body>
 </html>

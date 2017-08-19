@@ -9,6 +9,15 @@ h1 {
   color: #666666;
 }
 
+#loading {
+  width: 100%;
+  height: 1000px;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 0.9;
+  text-align: center;
+}
+
 .bordered_div_head {
   border: 6px solid #6B949F;
   outline: 2px solid #1C053A;
@@ -19,8 +28,8 @@ h1 {
   border: 6px solid #D4A36A;
   outline: 2px solid #1C053A;
   padding: 10px;
-
   height: 400px;
+  font-size: 12pt;
 }
 
 .title_div {
@@ -32,6 +41,7 @@ h1 {
 
 .summary_div {
   width: 800px;
+  font-size: 12pt;
 }
 
 .activity_data_container {
