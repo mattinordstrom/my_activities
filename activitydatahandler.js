@@ -89,6 +89,30 @@ ActivityDataHandler.prototype.setSummaryData = function(athleteData, activitiesD
 
   $("#activitiesThisMonth").html("Total activities this month: " + activitiesThisMonth.length + "/" + (this.monthlyGoal));
   $("#activitiesLastMonth").html("Total activities last month: " + activitiesLastMonth.length + "/" + (this.monthlyGoal));
+
+  this.setSummaryBar(activitiesThisYear, $('#activitiesThisYearBar'), true);
+  this.setSummaryBar(activitiesLastYear, $('#activitiesLastYearBar'), true);
+  this.setSummaryBar(activitiesThisMonth, $('#activitiesThisMonthBar'));
+  this.setSummaryBar(activitiesLastMonth, $('#activitiesLastMonthBar'));
+
+}
+
+ActivityDataHandler.prototype.setSummaryBar = function(activities, activitiesBarElement, yearActivity) {
+  var completedPart = activities.length / (this.monthlyGoal * (yearActivity ? 12 : 1)); //between 0-1
+  var barTotalWidth = activitiesBarElement.width();
+  var barWidth = completedPart * barTotalWidth;
+  var barColor = this.getBarColor(completedPart);
+
+  activitiesBarElement.append('<div style="width:'+barWidth+'px; height:'+activitiesBarElement.height()+'px; background-color:'+barColor+'"></div>')
+}
+
+ActivityDataHandler.prototype.getBarColor = function(completedPart) {
+  if(completedPart < 0.5){
+    return "#ed3704"; //red
+  } else if(completedPart < 0.8){
+    return "#e9ed25"; //yellow
+  }
+  return "#19e812"; //green
 }
 
 ActivityDataHandler.prototype.finishLoading = function() {

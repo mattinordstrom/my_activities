@@ -22,17 +22,38 @@
 			<tr>
 				<td>
 					<div class="bordered_div_head summary_div">
-						<div>
-							<span id="summaryName">UNKNOWN NAME</span>
-							<br /><br />
-							<span id="activitiesThisMonth"></span>
-							<br />
-							<span id="activitiesLastMonth"></span>
-							<br /><br />
-							<span id="activitiesThisYear"></span>
-							<br />
-							<span id="activitiesLastYear"></span>
-						</div>
+						<table>
+							<tr>
+								<td colspan="2">
+									<span id="summaryName">UNKNOWN NAME</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span id="activitiesThisMonth"></span>
+								</td>
+								<td><div class="bar" id="activitiesThisMonthBar"></div></td>
+							</tr>
+							<tr>
+								<td>
+									<span id="activitiesLastMonth"></span>
+								</td>
+								<td><div class="bar" id="activitiesLastMonthBar"></div></td>
+							</tr>
+							<tr><td height="10px"></td></tr>
+							<tr>
+								<td>
+									<span id="activitiesThisYear"></span>
+								</td>
+								<td><div class="bar" id="activitiesThisYearBar"></div></td>
+							</tr>
+							<tr>
+								<td>
+									<span id="activitiesLastYear"></span>
+								</td>
+								<td><div class="bar" id="activitiesLastYearBar"></div></td>
+							</tr>
+						</table>
 					</div>
 				</td>
 			</tr>
@@ -48,7 +69,7 @@
 						</div>
 					</td>
 					<td width="30px"></td>
-					<td width="450px" height="600px">
+					<td width="450px" height="570px">
 						<h1>cycling</h1>
 						Gear: <span id="bike">UNKNOWN </span> <br/><br/>
 							<div id="cycling_content" class="bordered_div_activity_content">
