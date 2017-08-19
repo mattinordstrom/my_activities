@@ -1,7 +1,11 @@
 <?php
 
 function getActivities($ch) {
-  curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete/activities');
+  $parameters = '?';
+  $parameters .= 'per_page=50';
+  $parameters .= '&after=1451606400'; //Fetch activities after 2016-01-01
+
+  curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete/activities' . $parameters);
   $response = curl_exec($ch);
 
   return json_decode($response, true);
