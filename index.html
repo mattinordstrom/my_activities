@@ -3,8 +3,8 @@
 <head>
 	<title>my activities</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://use.fontawesome.com/1229df245b.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="activitydatahandler.js"></script>
 	<script src="main.js"></script>
 </head>
@@ -28,7 +28,7 @@
 									<span id="summaryName">UNKNOWN NAME</span>
 								</td>
 								<td id="summaryGoalInfo">
-									Your goal is set to <span class="monthlyGoal">#</span> activites per month
+									Your goal is set to: <span class="monthlyGoal">#</span> total activites per month
 								</td>
 							</tr>
 							<tr>
@@ -66,7 +66,7 @@
 								</td>
 								<td><div class="bar" id="activities4MonthsAgoBar"></div></td>
 							</tr>
-							<tr colspan="2" style="background-color:#ccc"><td height="1px"></td></tr>
+							<tr colspan="2"><td>--------------------</td></tr>
 							<tr>
 								<td>
 									<span id="activitiesThisYear"></span>
@@ -84,7 +84,7 @@
 				</td>
 			</tr>
 			</table>
-			<div class="activity_data_container">
+			<div>
 				<table>
 				<tr>
 					<td width="400px">
@@ -104,6 +104,8 @@
 					</td>
 				</tr>
 			</table>
+			<div style="font-size:8pt">Activity gets a star when: Running <span id="starKmGoal">#</span> km in less than <span id="starMinGoal">#</span> min</div>
+			<div style="font-size:8pt"><i class="fa fa-star-o" aria-hidden="true"></i> earned this month: <span id="starsThisMonth">0</span> </div>
 		</div>
 		<br/>
 		<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">

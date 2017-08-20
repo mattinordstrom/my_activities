@@ -40,18 +40,14 @@ h1 {
 }
 
 .summary_div {
-  width: 700px;
+  width: 750px;
   font-size: 12pt;
-}
-
-.activity_data_container {
-  margin-left: 50px;
 }
 
 #summaryName, .monthlyGoal{
   line-height: 3;
   color: darkblue;
-  font-size: 16pt;
+  font-size: 12pt;
 }
 
 #summaryGoalInfo{

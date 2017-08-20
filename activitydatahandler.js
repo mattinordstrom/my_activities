@@ -1,12 +1,15 @@
 
-var ActivityDataHandler = function(monthlyGoal) {
+var ActivityDataHandler = function(monthlyGoal, runningGoalDistance, runningGoalTime) {
   this.monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
   this.monthlyGoal = monthlyGoal;
+  this.runningGoalDistance = runningGoalDistance;
+  this.runningGoalTime = runningGoalTime;
 
   $(".monthlyGoal").text(monthlyGoal);
-
+  $("#starMinGoal").text(runningGoalTime / 60);
+  $("#starKmGoal").text(runningGoalDistance / 1000);
 };
 
 ActivityDataHandler.prototype.constructor = ActivityDataHandler;
@@ -31,12 +34,29 @@ ActivityDataHandler.prototype.updateUIWithFetchedData = function(athleteData, ac
 
   this.setFiveLatest(runningActivities, cyclingActivities);
 
+  this.handleStars(runningActivities);
+
   this.finishLoading();
 }
 
+ActivityDataHandler.prototype.handleStars = function(runningActivities) {
+  var now = new Date();
+  var currentMonth = now.getMonth()+1;
+  var currentYear = now.getFullYear();
+
+  var starActivitiesThisMonth = $.grep(runningActivities, function(runningActivity){
+    var isCurrentYear = runningActivity.start_date.split('-')[0] == currentYear;
+    var isCurrentMonth = isCurrentYear && runningActivity.start_date.split('-')[1] == currentMonth;
+
+    return (isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.runningGoalDistance) && (runningActivity.moving_time < (this.runningGoalTime));
+  }.bind(this));
+
+  $("#starsThisMonth").text(starActivitiesThisMonth.length);
+}
+
 ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclingActivities) {
-  var fiveLatestRunningActivities = runningActivities.splice(runningActivities.length-5,runningActivities.length);
-  var fiveLatestCyclingActivities = cyclingActivities.splice(cyclingActivities.length-5,cyclingActivities.length);
+  var fiveLatestRunningActivities = runningActivities.length < 5 ? runningActivities : runningActivities.splice(runningActivities.length-5,runningActivities.length);
+  var fiveLatestCyclingActivities = cyclingActivities.length < 5 ? cyclingActivities : cyclingActivities.splice(cyclingActivities.length-5,cyclingActivities.length);
   var runningContent = "Latest 5 activities: <br/><br/><br/>";
   var cyclingContent = "Latest 5 activities: <br/><br/><br/>";
   var i, activityDate, activityDistance, activityDurationMinutes, activityDurationSeconds;
@@ -53,6 +73,9 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
       }
 
       runningContent += activityDate + ": " + activityDistance + " km in " + activityDurationMinutes + ":" + activityDurationSeconds;
+      if((fiveLatestRunningActivities[i].distance > this.runningGoalDistance) && (fiveLatestRunningActivities[i].moving_time < (this.runningGoalTime))){
+        runningContent += " <i class='fa fa-star-o' aria-hidden='true'></i>";
+      }
       runningContent += "<br/><br/>";
     }
 
@@ -158,6 +181,8 @@ ActivityDataHandler.prototype.setSummaryBar = function(activities, activitiesBar
   var completedPart = activities.length / (this.monthlyGoal * (yearActivity ? 12 : 1)); //between 0-1
   var barTotalWidth = activitiesBarElement.width();
   var barWidth = completedPart * barTotalWidth;
+  barWidth = barWidth > barTotalWidth ? barTotalWidth : barWidth;
+
   var barColor = this.getBarColor(completedPart);
 
   activitiesBarElement.append('<div style="width:'+barWidth+'px; height:'+activitiesBarElement.height()+'px; background-color:'+barColor+'"></div>')
