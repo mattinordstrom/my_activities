@@ -32,7 +32,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td colspan="2" style="padding-bottom:10px">
 									Completed activities:
 								</td>
 							</tr>
@@ -48,7 +48,25 @@
 								</td>
 								<td><div class="bar" id="activitiesLastMonthBar"></div></td>
 							</tr>
-							<tr><td height="10px"></td></tr>
+							<tr>
+								<td>
+									<span id="activities2MonthsAgo"></span>
+								</td>
+								<td><div class="bar" id="activities2MonthsAgoBar"></div></td>
+							</tr>
+							<tr>
+								<td>
+									<span id="activities3MonthsAgo"></span>
+								</td>
+								<td><div class="bar" id="activities3MonthsAgoBar"></div></td>
+							</tr>
+							<tr>
+								<td>
+									<span id="activities4MonthsAgo"></span>
+								</td>
+								<td><div class="bar" id="activities4MonthsAgoBar"></div></td>
+							</tr>
+							<tr colspan="2" style="background-color:#ccc"><td height="1px"></td></tr>
 							<tr>
 								<td>
 									<span id="activitiesThisYear"></span>
@@ -69,28 +87,25 @@
 			<div class="activity_data_container">
 				<table>
 				<tr>
-					<td width="450px">
+					<td width="400px">
 						<h1>running</h1>
-						Gear: <span id="shoes">UNKNOWN </span><br/><br/>
+						Current shoes: <span id="shoes">UNKNOWN </span><br/><br/>
 						<div id="running_content" class="bordered_div_activity_content">
 							NO DATA
 						</div>
 					</td>
 					<td width="30px"></td>
-					<td width="450px" height="570px">
+					<td width="400px">
 						<h1>cycling</h1>
-						Gear: <span id="bike">UNKNOWN </span> <br/><br/>
+						Current bike: <span id="bike">UNKNOWN </span> <br/><br/>
 							<div id="cycling_content" class="bordered_div_activity_content">
 								NO DATA
 							</div>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
-					</td>
-				</tr>
 			</table>
 		</div>
+		<br/>
+		<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
 </body>
 </html>

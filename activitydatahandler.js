@@ -1,7 +1,12 @@
+
 var ActivityDataHandler = function(monthlyGoal) {
+  this.monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+
   this.monthlyGoal = monthlyGoal;
 
   $(".monthlyGoal").text(monthlyGoal);
+
 };
 
 ActivityDataHandler.prototype.constructor = ActivityDataHandler;
@@ -60,7 +65,7 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
       if(activityDurationSeconds == 0){
         activityDurationSeconds += "0";
       }
-      
+
       cyclingContent += activityDate + ": " + activityDistance + " km in " + activityDurationMinutes + ":" + activityDurationSeconds;
       cyclingContent += "<br/><br/>";
     }
@@ -88,22 +93,65 @@ ActivityDataHandler.prototype.setSummaryData = function(athleteData, activitiesD
     var isCurrentYear = activity.start_date.split('-')[0] == currentYear;
     return isCurrentYear && activity.start_date.split('-')[1] == currentMonth;
   });
-  var activitiesLastMonth = $.grep(activitiesData, function(activity){
-    var isCurrentYear = activity.start_date.split('-')[0] == currentYear;
-    return isCurrentYear && activity.start_date.split('-')[1] == currentMonth-1;
-  });
+
+  var activitiesLastMonth = this.getActivitiesInAPreviousMonth(activitiesData, currentMonth, currentYear, 1);
+  var activities2MonthsAgo = this.getActivitiesInAPreviousMonth(activitiesData, currentMonth, currentYear, 2);
+  var activities3MonthsAgo = this.getActivitiesInAPreviousMonth(activitiesData, currentMonth, currentYear, 3);
+  var activities4MonthsAgo = this.getActivitiesInAPreviousMonth(activitiesData, currentMonth, currentYear, 4);
 
   $("#activitiesThisYear").html("This year: " + activitiesThisYear.length + "/" + (this.monthlyGoal*12));
   $("#activitiesLastYear").html("Last year: " + activitiesLastYear.length + "/" + (this.monthlyGoal*12));
 
   $("#activitiesThisMonth").html("This month: " + activitiesThisMonth.length + "/" + (this.monthlyGoal));
   $("#activitiesLastMonth").html("Last month: " + activitiesLastMonth.length + "/" + (this.monthlyGoal));
+  $("#activities2MonthsAgo").html(
+    this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 2) + " " +
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 2) + ": " +
+    activities2MonthsAgo.length + "/" + (this.monthlyGoal)
+  );
+  $("#activities3MonthsAgo").html(
+    this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 3) + " " +
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 3) + ": " +
+    activities3MonthsAgo.length + "/" + (this.monthlyGoal)
+  );
+  $("#activities4MonthsAgo").html(
+    this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 4) + " " +
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 4) + ": " +
+    activities4MonthsAgo.length + "/" + (this.monthlyGoal)
+  );
 
   this.setSummaryBar(activitiesThisYear, $('#activitiesThisYearBar'), true);
   this.setSummaryBar(activitiesLastYear, $('#activitiesLastYearBar'), true);
   this.setSummaryBar(activitiesThisMonth, $('#activitiesThisMonthBar'));
   this.setSummaryBar(activitiesLastMonth, $('#activitiesLastMonthBar'));
+  this.setSummaryBar(activities2MonthsAgo, $('#activities2MonthsAgoBar'));
+  this.setSummaryBar(activities3MonthsAgo, $('#activities3MonthsAgoBar'));
+  this.setSummaryBar(activities4MonthsAgo, $('#activities4MonthsAgoBar'));
 
+}
+
+ActivityDataHandler.prototype.getPreviousMonthsYearTitle = function(currentMonth, currentYear, numberOfMonthsBack) {
+  return ((currentMonth-numberOfMonthsBack) > 0) ? currentYear : currentYear-1;
+}
+
+ActivityDataHandler.prototype.getPreviousMonthsMonthTitle = function(currentMonth, currentYear, numberOfMonthsBack) {
+  return ((currentMonth-numberOfMonthsBack) > 0) ? this.monthNames[currentMonth-numberOfMonthsBack-1] : this.monthNames[12-Math.abs(currentMonth-numberOfMonthsBack)-1];
+}
+
+ActivityDataHandler.prototype.getActivitiesInAPreviousMonth = function(activitiesData, currentMonth, currentYear, numberOfMonthsBackToCheck) {
+  return $.grep(activitiesData, function(activity){
+    var checkMonthInCurrentYear = false;
+    if((currentMonth - numberOfMonthsBackToCheck) > 0){
+      checkMonthInCurrentYear = true;
+    }
+    var isCurrentYear = activity.start_date.split('-')[0] == currentYear;
+    var isLastYear = activity.start_date.split('-')[0] == currentYear-1;
+    if(checkMonthInCurrentYear){
+      return isCurrentYear && (activity.start_date.split('-')[1] == currentMonth-numberOfMonthsBackToCheck);
+    } else {
+      return isLastYear && (activity.start_date.split('-')[1] == 12-Math.abs(currentMonth-numberOfMonthsBackToCheck));
+    }
+  });
 }
 
 ActivityDataHandler.prototype.setSummaryBar = function(activities, activitiesBarElement, yearActivity) {

@@ -2,7 +2,7 @@ body {
   font-family: monospace;
   color: #333333;
   font-weight: bold;
-  font-size: 16pt;
+  font-size: 12pt;
 }
 
 h1 {
@@ -40,7 +40,7 @@ h1 {
 }
 
 .summary_div {
-  width: 800px;
+  width: 700px;
   font-size: 12pt;
 }
 
