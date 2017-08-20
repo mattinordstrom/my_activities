@@ -1,6 +1,7 @@
 var ActivityDataHandler = function(monthlyGoal) {
   this.monthlyGoal = monthlyGoal;
 
+  $(".monthlyGoal").text(monthlyGoal);
 };
 
 ActivityDataHandler.prototype.constructor = ActivityDataHandler;
@@ -38,21 +39,29 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
   for(i=4; i>=0; i--) {
     if(fiveLatestRunningActivities[i]){
       activityDate = fiveLatestRunningActivities[i].start_date.slice(0,10);
-      activityDistance = (fiveLatestRunningActivities[i].distance / 1000).toFixed(1);
+      activityDistance = (fiveLatestRunningActivities[i].distance / 1000).toFixed(2);
       activityDurationSeconds = fiveLatestRunningActivities[i].moving_time % 60;
       activityDurationMinutes = (fiveLatestRunningActivities[i].moving_time - activityDurationSeconds) / 60
 
-      runningContent += activityDate + ": " + activityDistance + "km in " + activityDurationMinutes + ":" + activityDurationSeconds;
+      if(activityDurationSeconds == 0){
+        activityDurationSeconds += "0";
+      }
+
+      runningContent += activityDate + ": " + activityDistance + " km in " + activityDurationMinutes + ":" + activityDurationSeconds;
       runningContent += "<br/><br/>";
     }
 
     if(fiveLatestCyclingActivities[i]){
       activityDate = fiveLatestCyclingActivities[i].start_date.slice(0,10);
-      activityDistance = (fiveLatestCyclingActivities[i].distance / 1000).toFixed(1);
+      activityDistance = (fiveLatestCyclingActivities[i].distance / 1000).toFixed(2);
       activityDurationSeconds = fiveLatestCyclingActivities[i].moving_time % 60;
       activityDurationMinutes = (fiveLatestCyclingActivities[i].moving_time - activityDurationSeconds) / 60
 
-      cyclingContent += activityDate + ": " + activityDistance + "km in " + activityDurationMinutes + ":" + activityDurationSeconds;
+      if(activityDurationSeconds == 0){
+        activityDurationSeconds += "0";
+      }
+      
+      cyclingContent += activityDate + ": " + activityDistance + " km in " + activityDurationMinutes + ":" + activityDurationSeconds;
       cyclingContent += "<br/><br/>";
     }
   }
@@ -84,11 +93,11 @@ ActivityDataHandler.prototype.setSummaryData = function(athleteData, activitiesD
     return isCurrentYear && activity.start_date.split('-')[1] == currentMonth-1;
   });
 
-  $("#activitiesThisYear").html("Total activities this year: " + activitiesThisYear.length + "/" + (this.monthlyGoal*12));
-  $("#activitiesLastYear").html("Total activities last year: " + activitiesLastYear.length + "/" + (this.monthlyGoal*12));
+  $("#activitiesThisYear").html("This year: " + activitiesThisYear.length + "/" + (this.monthlyGoal*12));
+  $("#activitiesLastYear").html("Last year: " + activitiesLastYear.length + "/" + (this.monthlyGoal*12));
 
-  $("#activitiesThisMonth").html("Total activities this month: " + activitiesThisMonth.length + "/" + (this.monthlyGoal));
-  $("#activitiesLastMonth").html("Total activities last month: " + activitiesLastMonth.length + "/" + (this.monthlyGoal));
+  $("#activitiesThisMonth").html("This month: " + activitiesThisMonth.length + "/" + (this.monthlyGoal));
+  $("#activitiesLastMonth").html("Last month: " + activitiesLastMonth.length + "/" + (this.monthlyGoal));
 
   this.setSummaryBar(activitiesThisYear, $('#activitiesThisYearBar'), true);
   this.setSummaryBar(activitiesLastYear, $('#activitiesLastYearBar'), true);

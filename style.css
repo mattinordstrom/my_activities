@@ -48,8 +48,14 @@ h1 {
   margin-left: 50px;
 }
 
-#summaryName {
+#summaryName, .monthlyGoal{
   line-height: 3;
+  color: darkblue;
+  font-size: 16pt;
+}
+
+#summaryGoalInfo{
+  padding-left: 40px;
 }
 
 .bar {
