@@ -19,6 +19,10 @@ ActivityDataHandler.prototype.setActivityData = function() {
     var athleteData = data.athlete;
     var activitiesData = data.activities;
 
+    if(data.athlete.errors){
+      $('#loadingDivContent').text("Error fetching data: " + data.athlete.errors[0].code + " " + data.athlete.errors[0].field);
+      return;
+    }
     this.updateUIWithFetchedData(athleteData, activitiesData);
   }.bind(this));
 }
@@ -29,8 +33,8 @@ ActivityDataHandler.prototype.updateUIWithFetchedData = function(athleteData, ac
 
   this.setSummaryData(athleteData, activitiesData);
 
-  $("#bike").text(athleteData.bikes[0].name);
-  $("#shoes").text(athleteData.shoes[0].name);
+  $("#bike").text(athleteData.bikes.length > 0 ? athleteData.bikes[0].name : "UNKNOWN");
+  $("#shoes").text(athleteData.shoes.length > 0 ? athleteData.shoes[0].name : "UNKNOWN");
 
   this.setFiveLatest(runningActivities, cyclingActivities);
 
