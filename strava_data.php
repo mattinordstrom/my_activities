@@ -1,37 +1,67 @@
 <?php
 
-function getActivities($ch) {
-  $parameters = '?';
-  $parameters .= 'per_page=50';
-  $parameters .= '&after=1451606400'; //Fetch activities after 2016-01-01
+function stripUnnecessaryAthleteResponseData($data)
+{
+    $filteredData = array_filter($data, function ($key) {
+        $athleteProps = array("firstname", "lastname", "email", "bikes", "shoes");
 
-  curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete/activities' . $parameters);
-  $response = curl_exec($ch);
+        return in_array($key, $athleteProps);
+    }, ARRAY_FILTER_USE_KEY);
 
-  return json_decode($response, true);
+    return $filteredData;
 }
 
-function getAthlete($ch) {
-  curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete');
-  $response = curl_exec($ch);
+function stripUnnecessaryActivitiesResponseData($data)
+{
+    $filteredActivities = [];
+    foreach ($data as $activity) {
+        $filteredActivity = array_filter($activity, function ($key) {
+            $activityProps = array("distance", "moving_time", "type", "start_date");
 
-  return json_decode($response, true);
+            return in_array($key, $activityProps);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $filteredActivities[] = $filteredActivity;
+    }
+
+    return $filteredActivities;
 }
 
-function getAllData() {
-  $ACCESS_TOKEN = '';
+function getActivities($ch)
+{
+    $parameters = '?';
+    $parameters .= 'per_page=50';
+    $parameters .= '&after=1451606400'; //Fetch activities after 2016-01-01
 
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $ACCESS_TOKEN));
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete/activities' . $parameters);
+    $response = curl_exec($ch);
 
-  $response = array();
-  $response['athlete'] = getAthlete($ch);
-  $response['activities'] = getActivities($ch);
+    return json_decode($response, true);
+}
 
-  curl_close($ch);
+function getAthlete($ch)
+{
+    curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete');
+    $response = curl_exec($ch);
 
-  return json_encode($response);
+    return json_decode($response, true);
+}
+
+function getAllData()
+{
+    $ACCESS_TOKEN = '';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $ACCESS_TOKEN));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = array();
+    $response['athlete'] = stripUnnecessaryAthleteResponseData(getAthlete($ch));
+    $response['activities'] = stripUnnecessaryActivitiesResponseData(getActivities($ch));
+
+    curl_close($ch);
+
+    return json_encode($response);
 }
 
 echo getAllData();
