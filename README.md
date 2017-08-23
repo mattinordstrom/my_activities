@@ -7,4 +7,4 @@ How to get started:
 The monthly goal represents the total amount of activities completed per month (running + cycling).
 Note: It is only possible to set a distance/time goal for running activities.
 
-Example here: mattinordstorm.se
+Example here: http://www.mattinordstrom.se/
