@@ -1,15 +1,27 @@
 
-var ActivityDataHandler = function(monthlyGoal, runningGoalDistance, runningGoalTime) {
+var ActivityDataHandler = function(monthlyGoal, runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
   this.monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
   this.monthlyGoal = monthlyGoal;
   this.runningGoalDistance = runningGoalDistance;
   this.runningGoalTime = runningGoalTime;
+  this.secondaryRunningGoalDistance = secondaryRunningGoalDistance;
+  this.secondaryRunningGoalTime = secondaryRunningGoalTime;
 
   $(".monthlyGoal").text(monthlyGoal);
-  $("#starMinGoal").text(runningGoalTime / 60);
-  $("#starKmGoal").text(runningGoalDistance / 1000);
+
+  if(runningGoalTime == 0){
+    $("#starGoal").text((runningGoalDistance / 1000)+" km in any time");
+  } else {
+    $("#starGoal").text((runningGoalDistance / 1000)+" km in less than " + (runningGoalTime / 60).toFixed(2)+" min");
+  }
+
+  if(secondaryRunningGoalTime == 0){
+    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000)+" km in any time");
+  } else {
+    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000)+" km in less than " + (secondaryRunningGoalTime / 60).toFixed(2)+" min");
+  }
 };
 
 ActivityDataHandler.prototype.constructor = ActivityDataHandler;
@@ -47,15 +59,24 @@ ActivityDataHandler.prototype.handleStars = function(runningActivities) {
   var now = new Date();
   var currentMonth = now.getMonth()+1;
   var currentYear = now.getFullYear();
+  var i, runningActivity, starActivitiesThisMonth = [], secStarActivitiesThisMonth = [];
 
-  var starActivitiesThisMonth = $.grep(runningActivities, function(runningActivity){
+  for(i=0; i<runningActivities.length; i++) {
+    runningActivity = runningActivities[i];
     var isCurrentYear = runningActivity.start_date.split('-')[0] == currentYear;
     var isCurrentMonth = isCurrentYear && runningActivity.start_date.split('-')[1] == currentMonth;
 
-    return (isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.runningGoalDistance) && (runningActivity.moving_time < (this.runningGoalTime));
-  }.bind(this));
+    var primaryRunningTimeCompleted = (runningActivity.moving_time < (this.runningGoalTime)) || this.runningGoalTime == 0;
+    var secondaryRunningTimeCompleted = (runningActivity.moving_time < (this.secondaryRunningGoalTime)) || this.secondaryRunningGoalTime == 0;
+    if((isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.runningGoalDistance) && primaryRunningTimeCompleted) {
+      starActivitiesThisMonth.push(runningActivities[i]);
+    } else if((isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.secondaryRunningGoalDistance) && secondaryRunningTimeCompleted){
+      secStarActivitiesThisMonth.push(runningActivities[i]);
+    }
+  }
 
   $("#starsThisMonth").text(starActivitiesThisMonth.length);
+  $("#secondaryStarsThisMonth").text(secStarActivitiesThisMonth.length);
 }
 
 ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclingActivities) {
@@ -77,7 +98,13 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
       }
 
       runningContent += activityDate + ": " + activityDistance + " km in " + activityDurationMinutes + ":" + activityDurationSeconds;
-      if((fiveLatestRunningActivities[i].distance > this.runningGoalDistance) && (fiveLatestRunningActivities[i].moving_time < (this.runningGoalTime))){
+
+      var primaryRunningTimeCompleted = (fiveLatestRunningActivities[i].moving_time < (this.runningGoalTime)) || this.runningGoalTime == 0;
+      var secondaryRunningTimeCompleted = (fiveLatestRunningActivities[i].moving_time < (this.secondaryRunningGoalTime)) || this.secondaryRunningGoalTime == 0;
+
+      if((fiveLatestRunningActivities[i].distance > this.runningGoalDistance) && primaryRunningTimeCompleted){
+        runningContent += " <i class='fa fa-star' aria-hidden='true'></i>";
+      } else if((fiveLatestRunningActivities[i].distance > this.secondaryRunningGoalDistance) && secondaryRunningTimeCompleted){
         runningContent += " <i class='fa fa-star-o' aria-hidden='true'></i>";
       }
       runningContent += "<br/><br/>";
