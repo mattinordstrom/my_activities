@@ -35,8 +35,8 @@ function getActivities($ch)
 
     curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete/activities' . $parameters);
     $response = curl_exec($ch);
-
-    return json_decode($response, true);
+    $jsonResponse = json_decode($response, true);
+    return stripUnnecessaryActivitiesResponseData($jsonResponse);
 }
 
 function getAthlete($ch)
@@ -44,7 +44,14 @@ function getAthlete($ch)
     curl_setopt($ch, CURLOPT_URL, 'https://www.strava.com/api/v3/athlete');
     $response = curl_exec($ch);
 
-    return json_decode($response, true);
+    $jsonResponse = json_decode($response, true);
+    $hasError = array_key_exists('errors', $jsonResponse);
+
+    if($hasError){
+        return $jsonResponse;
+    }
+
+    return stripUnnecessaryAthleteResponseData($jsonResponse);
 }
 
 function getAllData()
@@ -56,8 +63,18 @@ function getAllData()
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     $response = array();
-    $response['athlete'] = stripUnnecessaryAthleteResponseData(getAthlete($ch));
-    $response['activities'] = stripUnnecessaryActivitiesResponseData(getActivities($ch));
+    $response['athlete'] = getAthlete($ch);
+
+    if(array_key_exists('errors', $response['athlete'])){
+        $errorResponse = array();
+        $errorResponse['errors'] = array();
+        $errorResponse['errors'][0]['message'] = $response['athlete']['message'];
+        $errorResponse['errors'][0]['errors'] = $response['athlete']['errors'];
+
+        return json_encode($errorResponse);
+    }
+
+    $response['activities'] = getActivities($ch);
 
     curl_close($ch);
 

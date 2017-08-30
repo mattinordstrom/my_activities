@@ -31,8 +31,8 @@ ActivityDataHandler.prototype.setActivityData = function() {
     var athleteData = data.athlete;
     var activitiesData = data.activities;
 
-    if(data.athlete.errors){
-      $('#loadingDivContent').text("Error fetching data: " + data.athlete.errors[0].code + " " + data.athlete.errors[0].field);
+    if(data.errors){
+      $('#loadingDivContent').html("Error fetching data <br />" + data.errors[0].message + ": " + data.errors[0].errors[0].code + " " + data.errors[0].errors[0].field);
       return;
     }
     this.updateUIWithFetchedData(athleteData, activitiesData);
@@ -87,13 +87,14 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
   var i, activityDate, activityDistance, activityDurationMinutes, activityDurationSeconds;
 
   for(i=4; i>=0; i--) {
+    //RUNNING
     if(fiveLatestRunningActivities[i]){
       activityDate = fiveLatestRunningActivities[i].start_date.slice(0,10);
       activityDistance = (fiveLatestRunningActivities[i].distance / 1000).toFixed(2);
       activityDurationSeconds = fiveLatestRunningActivities[i].moving_time % 60;
       activityDurationMinutes = (fiveLatestRunningActivities[i].moving_time - activityDurationSeconds) / 60
 
-      if(activityDurationSeconds == 0){
+      if(activityDurationSeconds.toString().length == 1){
         activityDurationSeconds += "0";
       }
 
@@ -110,13 +111,14 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
       runningContent += "<br/><br/>";
     }
 
+    //CYCLING
     if(fiveLatestCyclingActivities[i]){
       activityDate = fiveLatestCyclingActivities[i].start_date.slice(0,10);
       activityDistance = (fiveLatestCyclingActivities[i].distance / 1000).toFixed(2);
       activityDurationSeconds = fiveLatestCyclingActivities[i].moving_time % 60;
       activityDurationMinutes = (fiveLatestCyclingActivities[i].moving_time - activityDurationSeconds) / 60
 
-      if(activityDurationSeconds == 0){
+      if(activityDurationSeconds.toString().length == 1){
         activityDurationSeconds += "0";
       }
 

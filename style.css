@@ -14,8 +14,8 @@ h1 {
   height: 1000px;
   position: absolute;
   background-color: #ffffff;
-  opacity: 0.9;
-  text-align: center;
+  opacity: 0.95;
+  font-size: 22pt;
 }
 
 .bordered_div_head {
