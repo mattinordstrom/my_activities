@@ -1,12 +1,13 @@
 body {
-  font-family: monospace;
+  font-family: arial;
   color: #333333;
-  font-weight: bold;
   font-size: 12pt;
+  margin: 15px;
+  background-color: #F4F4F4;
 }
 
 h1 {
-  color: #666666;
+  color: #373737;
 }
 
 #loading {
@@ -19,35 +20,32 @@ h1 {
 }
 
 .bordered_div_head {
-  border: 6px solid #6B949F;
+  border: 6px solid #5DB0C2;
   outline: 2px solid #1C053A;
-  padding: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
 }
 
 .bordered_div_activity_content {
-  border: 6px solid #D4A36A;
+  border: 6px solid #3CC47C;
   outline: 2px solid #1C053A;
-  padding: 10px;
-  height: 300px;
+  padding-top: 10px;
+  padding-left: 20px;
+  min-height: 250px;
   font-size: 12pt;
 }
 
 .title_div {
-  width: 800px;
-  color: #666666;
+  color: #373737;
   font-size: 30pt;
   font-weight: bold;
-}
-
-.summary_div {
-  width: 750px;
-  font-size: 12pt;
+  margin-bottom: 20px;
 }
 
 #summaryName, .monthlyGoal{
   line-height: 3;
-  color: darkblue;
-  font-size: 12pt;
+  font-size: 14pt;
+  font-weight: bold;
 }
 
 #summaryGoalInfo{
@@ -59,4 +57,9 @@ h1 {
   width: 250px;
   height: 20px;
   margin-left: 20px;
+}
+
+.starInfo {
+  font-size:10pt;
+  line-height:14pt;
 }

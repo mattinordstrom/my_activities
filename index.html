@@ -15,11 +15,10 @@
 <body onload="init()">
 	<div id="loading"><div id="loadingDivContent" style="margin:40px">Loading...</div></div>
 		<table>
-			<tr><td><div class="title_div">my activities</div></td></tr>
-			<tr><td></td></tr>
+			<tr><td colspan="3"><div class="title_div">my activities</div></td></tr>
 			<tr>
-				<td>
-					<div class="bordered_div_head summary_div">
+				<td colspan="3">
+					<div class="bordered_div_head">
 						<table>
 							<tr>
 								<td>
@@ -67,30 +66,31 @@
 					</div>
 				</td>
 			</tr>
-			</table>
-			<div>
-				<table>
-				<tr>
-					<td width="400px">
-						<h1>running</h1>
-						Current shoes: <span id="shoes">UNKNOWN </span><br/><br/>
-						<div id="running_content" class="bordered_div_activity_content">
+			<tr>
+				<td width="360px">
+					<h1>running</h1>
+					Current shoes: <span id="shoes">UNKNOWN </span><br/><br/>
+					<div id="running_content" class="bordered_div_activity_content">
+						NO DATA
+					</div>
+				</td>
+				<td width="30px"></td>
+				<td width="360px">
+					<h1>cycling</h1>
+					Current bike: <span id="bike">UNKNOWN </span> <br/><br/>
+						<div id="cycling_content" class="bordered_div_activity_content">
 							NO DATA
 						</div>
-					</td>
-					<td width="30px"></td>
-					<td width="400px">
-						<h1>cycling</h1>
-						Current bike: <span id="bike">UNKNOWN </span> <br/><br/>
-							<div id="cycling_content" class="bordered_div_activity_content">
-								NO DATA
-							</div>
-					</td>
-				</tr>
-			</table>
-			<div style="font-size:9pt; line-height:14pt"><i class="fa fa-star" aria-hidden="true"></i> Primary running goal: <span id="starGoal"># km in less than #</span> </div>
-			<div style="font-size:9pt; line-height:14pt"><i class="fa fa-star-o" aria-hidden="true"></i> Secondary running goal: <span id="secStarGoal"># km in less than #</span> </div>
-			<div style="font-size:9pt; line-height:14pt">Stars earned this month: <i class="fa fa-star" aria-hidden="true"></i><span id="starsThisMonth">0</span>&nbsp;<i class="fa fa-star-o" aria-hidden="true"></i><span id="secondaryStarsThisMonth">0</span> </div>
+				</td>
+			</tr>
+		</table>
+		<br/>
+		<div class="starInfo"><i class="fa fa-star" aria-hidden="true"></i> Primary running goal: <span id="starGoal"># km in less than #</span> </div>
+		<div class="starInfo"><i class="fa fa-star-o" aria-hidden="true"></i> Secondary running goal: <span id="secStarGoal"># km in less than #</span> </div>
+		<div class="starInfo">
+			Stars earned this month:
+			<i class="fa fa-star" aria-hidden="true"></i><span id="starsThisMonth">0</span>
+			&nbsp;<i class="fa fa-star-o" aria-hidden="true"></i><span id="secondaryStarsThisMonth">0</span>
 		</div>
 		<br/>
 		<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
