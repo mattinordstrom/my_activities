@@ -1,7 +1,7 @@
 var MainHandler = function(monthlyGoal, runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
   this.summaryHandler = new SummaryHandler(monthlyGoal);
-  this.activityDataHandler = new ActivityDataHandler(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime);
   this.starGoalHandler = new StarGoalHandler(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime);
+  this.activityDataHandler = new ActivityDataHandler(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime, this.starGoalHandler);
 
 };
 
@@ -18,8 +18,8 @@ MainHandler.prototype.init = function() {
     }
 
     this.summaryHandler.setSummaryData(athleteData, activitiesData);
-    this.activityDataHandler.setActivityData(athleteData, activitiesData);
     this.starGoalHandler.setStarGoalData(activitiesData);
+    this.activityDataHandler.setActivityData(athleteData, activitiesData);
 
     this.finishLoading();
   }.bind(this));

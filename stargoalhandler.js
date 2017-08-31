@@ -1,4 +1,9 @@
 var StarGoalHandler = function(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
+  this.runningGoalDistance = runningGoalDistance;
+  this.runningGoalTime = runningGoalTime;
+  this.secondaryRunningGoalDistance = secondaryRunningGoalDistance;
+  this.secondaryRunningGoalTime = secondaryRunningGoalTime;
+
   if(runningGoalTime == 0){
     $("#starGoal").text((runningGoalDistance / 1000) + " km in any time");
   } else {
@@ -38,4 +43,17 @@ StarGoalHandler.prototype.setStarGoalData = function(activitiesData) {
 
   $("#starsThisMonth").text(starActivitiesThisMonth.length);
   $("#secondaryStarsThisMonth").text(secStarActivitiesThisMonth.length);
+}
+
+StarGoalHandler.prototype.getStarContentForRunningActivity = function(activity) {
+  var primaryRunningTimeCompleted = (activity.moving_time < (this.runningGoalTime)) || this.runningGoalTime == 0;
+  var secondaryRunningTimeCompleted = (activity.moving_time < (this.secondaryRunningGoalTime)) || this.secondaryRunningGoalTime == 0;
+
+  if((activity.distance > this.runningGoalDistance) && primaryRunningTimeCompleted){
+    return " <i class='fa fa-star' aria-hidden='true'></i>";
+  } else if((activity.distance > this.secondaryRunningGoalDistance) && secondaryRunningTimeCompleted){
+    return " <i class='fa fa-star-o' aria-hidden='true'></i>";
+  }
+
+  return "";
 }
