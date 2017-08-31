@@ -5,19 +5,16 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://use.fontawesome.com/1229df245b.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="summaryhandler.js"></script>
 	<script src="activitydatahandler.js"></script>
+	<script src="stargoalhandler.js"></script>
+	<script src="mainhandler.js"></script>
 	<script src="main.js"></script>
 </head>
 <body onload="init()">
 	<div id="loading"><div id="loadingDivContent" style="margin:40px">Loading...</div></div>
 		<table>
-			<tr>
-				<td>
-					<div class="title_div">
-						my activities
-					</div>
-				</td>
-			</tr>
+			<tr><td><div class="title_div">my activities</div></td></tr>
 			<tr><td></td></tr>
 			<tr>
 				<td>
@@ -37,46 +34,32 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activitiesThisMonth"></span>
-								</td>
+								<td><span id="activitiesThisMonth"></span></td>
 								<td><div class="bar" id="activitiesThisMonthBar"></div></td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activitiesLastMonth"></span>
-								</td>
+								<td><span id="activitiesLastMonth"></span></td>
 								<td><div class="bar" id="activitiesLastMonthBar"></div></td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activities2MonthsAgo"></span>
-								</td>
+								<td><span id="activities2MonthsAgo"></span></td>
 								<td><div class="bar" id="activities2MonthsAgoBar"></div></td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activities3MonthsAgo"></span>
-								</td>
+								<td><span id="activities3MonthsAgo"></span></td>
 								<td><div class="bar" id="activities3MonthsAgoBar"></div></td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activities4MonthsAgo"></span>
-								</td>
+								<td><span id="activities4MonthsAgo"></span></td>
 								<td><div class="bar" id="activities4MonthsAgoBar"></div></td>
 							</tr>
 							<tr colspan="2"><td>--------------------</td></tr>
 							<tr>
-								<td>
-									<span id="activitiesThisYear"></span>
-								</td>
+								<td><span id="activitiesThisYear"></span></td>
 								<td><div class="bar" id="activitiesThisYearBar"></div></td>
 							</tr>
 							<tr>
-								<td>
-									<span id="activitiesLastYear"></span>
-								</td>
+								<td><span id="activitiesLastYear"></span></td>
 								<td><div class="bar" id="activitiesLastYearBar"></div></td>
 							</tr>
 						</table>
