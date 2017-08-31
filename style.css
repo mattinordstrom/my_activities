@@ -20,14 +20,14 @@ h1 {
 }
 
 .bordered_div_head {
-  border: 6px solid #5DB0C2;
+  border: 6px solid #8EC25D;
   outline: 2px solid #1C053A;
   padding-bottom: 10px;
   padding-left: 20px;
 }
 
 .bordered_div_activity_content {
-  border: 6px solid #3CC47C;
+  border: 6px solid #5DC0C2;
   outline: 2px solid #1C053A;
   padding-top: 10px;
   padding-left: 20px;
@@ -39,11 +39,11 @@ h1 {
   color: #373737;
   font-size: 30pt;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 #summaryName, .monthlyGoal{
-  line-height: 3;
+  line-height: 4;
   font-size: 14pt;
   font-weight: bold;
 }
