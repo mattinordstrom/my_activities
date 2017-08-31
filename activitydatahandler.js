@@ -20,8 +20,8 @@ ActivityDataHandler.prototype.setActivityData = function(athleteData, activities
 }
 
 ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclingActivities) {
-  var fiveLatestRunningActivities = runningActivities.length < 5 ? runningActivities : runningActivities.splice(runningActivities.length-5,runningActivities.length);
-  var fiveLatestCyclingActivities = cyclingActivities.length < 5 ? cyclingActivities : cyclingActivities.splice(cyclingActivities.length-5,cyclingActivities.length);
+  var fiveLatestRunningActivities = runningActivities.length < 5 ? runningActivities : runningActivities.splice(runningActivities.length - 5, runningActivities.length);
+  var fiveLatestCyclingActivities = cyclingActivities.length < 5 ? cyclingActivities : cyclingActivities.splice(cyclingActivities.length - 5, cyclingActivities.length);
   var runningContent = "Latest 5 activities: <br/><br/><br/>";
   var cyclingContent = "Latest 5 activities: <br/><br/><br/>";
   var i, activityDate, activityDistance, activityDurationMinutes, activityDurationSeconds;

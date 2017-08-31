@@ -1,14 +1,14 @@
 var StarGoalHandler = function(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
   if(runningGoalTime == 0){
-    $("#starGoal").text((runningGoalDistance / 1000)+" km in any time");
+    $("#starGoal").text((runningGoalDistance / 1000) + " km in any time");
   } else {
-    $("#starGoal").text((runningGoalDistance / 1000)+" km in less than " + (runningGoalTime / 60).toFixed(2)+" min");
+    $("#starGoal").text((runningGoalDistance / 1000) + " km in less than " + (runningGoalTime / 60).toFixed(2) + " min");
   }
 
   if(secondaryRunningGoalTime == 0){
-    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000)+" km in any time");
+    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000) + " km in any time");
   } else {
-    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000)+" km in less than " + (secondaryRunningGoalTime / 60).toFixed(2)+" min");
+    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000) + " km in less than " + (secondaryRunningGoalTime / 60).toFixed(2) + " min");
   }
 };
 
@@ -18,7 +18,7 @@ StarGoalHandler.prototype.setStarGoalData = function(activitiesData) {
   var runningActivities = $.grep(activitiesData, function(activity){ return activity.type == "Run"; });
 
   var now = new Date();
-  var currentMonth = now.getMonth()+1;
+  var currentMonth = now.getMonth() + 1;
   var currentYear = now.getFullYear();
   var i, runningActivity, starActivitiesThisMonth = [], secStarActivitiesThisMonth = [];
 
