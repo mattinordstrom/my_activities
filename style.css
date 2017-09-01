@@ -8,6 +8,11 @@ body {
 
 h1 {
   color: #373737;
+  margin-bottom: 10px;
+}
+
+a {
+  font-size: 10pt;
 }
 
 #loading {
@@ -59,7 +64,7 @@ h1 {
   margin-left: 20px;
 }
 
-.starInfo {
+.starInfo, .gearInfo {
   font-size:10pt;
-  line-height:14pt;
+  line-height:18pt;
 }

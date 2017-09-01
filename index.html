@@ -25,7 +25,7 @@
 									<span id="summaryName">UNKNOWN NAME</span>
 								</td>
 								<td id="summaryGoalInfo">
-									The goal is set to: <span class="monthlyGoal">#</span> total activites per month
+									The goal is set to <span class="monthlyGoal">#</span> total activites per month
 								</td>
 							</tr>
 							<tr>
@@ -69,7 +69,7 @@
 			<tr>
 				<td width="360px">
 					<h1>running</h1>
-					Current shoes: <span id="shoes">UNKNOWN </span><br/><br/>
+					<div class="gearInfo">Shoes: <span id="shoes">UNKNOWN </span></div>
 					<div id="running_content" class="bordered_div_activity_content">
 						NO DATA
 					</div>
@@ -77,22 +77,40 @@
 				<td width="30px"></td>
 				<td width="360px">
 					<h1>cycling</h1>
-					Current bike: <span id="bike">UNKNOWN </span> <br/><br/>
+					<div class="gearInfo">Bike: <span id="bike">UNKNOWN </span></div>
 						<div id="cycling_content" class="bordered_div_activity_content">
 							NO DATA
 						</div>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<div class="starInfo"><i class="fa fa-star" aria-hidden="true"></i> Primary running goal: <span id="starGoal"># km in less than #</span> </div>
+					<div class="starInfo"><i class="fa fa-star-o" aria-hidden="true"></i> Secondary running goal: <span id="secStarGoal"># km in less than #</span> </div>
+					<div class="starInfo">
+						Stars earned this month:
+						<i class="fa fa-star" aria-hidden="true"></i><span id="starsThisMonth">0</span>
+						&nbsp;<i class="fa fa-star-o" aria-hidden="true"></i><span id="secondaryStarsThisMonth">0</span>
+					</div>
+				</td>
+				<td width="30px"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="3" height="20px">
+					<div style="border-top: 1px solid #CCCCCC;"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+						<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava" />
+				</td>
+				<td style="vertical-align:top">
+					<img width="80px" src="img/GitHub_Logo.png" alt="Source code at GitHub" />
+					<br/>
+					<a href="https://github.com/mattinordstrom/my_activities" target="_blank">Source code at GitHub</a>
+				</td>
+			</tr>
 		</table>
-		<br/>
-		<div class="starInfo"><i class="fa fa-star" aria-hidden="true"></i> Primary running goal: <span id="starGoal"># km in less than #</span> </div>
-		<div class="starInfo"><i class="fa fa-star-o" aria-hidden="true"></i> Secondary running goal: <span id="secStarGoal"># km in less than #</span> </div>
-		<div class="starInfo">
-			Stars earned this month:
-			<i class="fa fa-star" aria-hidden="true"></i><span id="starsThisMonth">0</span>
-			&nbsp;<i class="fa fa-star-o" aria-hidden="true"></i><span id="secondaryStarsThisMonth">0</span>
-		</div>
-		<br/>
-		<img src="img/api_logo_pwrdBy_strava_horiz_light.png" alt="Powered by Strava">
 </body>
 </html>
