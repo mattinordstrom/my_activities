@@ -45,15 +45,16 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
 }
 
 ActivityDataHandler.prototype.getActivityString = function(activity) {
-  var i, activityDate, activityDistance, activityDurationMinutes, activityDurationSeconds;
+  var i, activityDate, activityFullDistanceString, activityDistance, activityDurationMinutes, activityDurationSeconds;
 
   activityDate = activity.start_date.slice(0,10);
-  activityDistance = (activity.distance / 1000).toFixed(2);
+  activityFullDistanceString = (activity.distance / 1000).toString();
+  activityDistance = activityFullDistanceString.slice(0, (activityFullDistanceString.indexOf("."))+3);
   activityDurationSeconds = activity.moving_time % 60;
   activityDurationMinutes = (activity.moving_time - activityDurationSeconds) / 60
 
   if(activityDurationSeconds.toString().length == 1){
-    activityDurationSeconds += "0";
+    activityDurationSeconds = "0" + activityDurationSeconds;
   }
 
   return activityDate + ": <strong>" + activityDistance + " km</strong> in " + activityDurationMinutes + ":" + activityDurationSeconds;
