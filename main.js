@@ -1,11 +1,21 @@
 function init() {
-  var MONTHLY_GOAL = 8;
-  var RUNNING_GOAL_M = 5000; //Running goal: Run 5 km in..
-  var RUNNING_GOAL_TIME_S = 1800; //..less than 30 min (gives 1 filled star)
 
-  var SEC_RUNNING_GOAL_M = 5000; //Secondary goal
-  var SEC_RUNNING_GOAL_TIME_S = 0; //0 = any time
+  var goalConfig = {
+    MONTHLY_GOAL: 8,
+    RUNNING_GOAL: {
+      PRIMARY_DISTANCE: 5000, //Running goal: Run 5 km in..
+      PRIMARY_TIME: 1800, //..less than 30 min (gives 1 filled star)
+      SECONDARY_DISTANCE: 5000, //Secondary goal
+      SECONDARY_TIME: 0 //0 = any time
+    },
+    CYCLING_GOAL: {
+      PRIMARY_DISTANCE: 15000,
+      PRIMARY_TIME: 3000,
+      SECONDARY_DISTANCE: 20000,
+      SECONDARY_TIME: 0
+    }
+  };
 
-  var mainHandler = new MainHandler(MONTHLY_GOAL, RUNNING_GOAL_M, RUNNING_GOAL_TIME_S, SEC_RUNNING_GOAL_M, SEC_RUNNING_GOAL_TIME_S);
+  var mainHandler = new MainHandler(goalConfig);
   mainHandler.init();
 }

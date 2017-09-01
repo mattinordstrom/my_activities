@@ -13,6 +13,15 @@ h1 {
 
 a {
   font-size: 10pt;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+a:visited {
+color: #333333;
 }
 
 #loading {

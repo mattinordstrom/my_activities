@@ -1,7 +1,7 @@
-var MainHandler = function(monthlyGoal, runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
-  this.summaryHandler = new SummaryHandler(monthlyGoal);
-  this.starGoalHandler = new StarGoalHandler(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime);
-  this.activityDataHandler = new ActivityDataHandler(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime, this.starGoalHandler);
+var MainHandler = function(goalConfig) {
+  this.summaryHandler = new SummaryHandler(goalConfig["MONTHLY_GOAL"]);
+  this.starGoalHandler = new StarGoalHandler(goalConfig);
+  this.activityDataHandler = new ActivityDataHandler(this.starGoalHandler);
 
 };
 
@@ -17,9 +17,12 @@ MainHandler.prototype.init = function() {
       return;
     }
 
+    var runningActivities = $.grep(activitiesData, function(activity){ return activity.type == "Run"; });
+    var cyclingActivities = $.grep(activitiesData, function(activity){ return activity.type == "Ride"; });
+
     this.summaryHandler.setSummaryData(athleteData, activitiesData);
-    this.starGoalHandler.setStarGoalData(activitiesData);
-    this.activityDataHandler.setActivityData(athleteData, activitiesData);
+    this.starGoalHandler.setStarsEarnedThisMonth(runningActivities, cyclingActivities);
+    this.activityDataHandler.setActivityData(athleteData, runningActivities, cyclingActivities);
 
     this.finishLoading();
   }.bind(this));

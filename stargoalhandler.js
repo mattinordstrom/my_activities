@@ -1,57 +1,78 @@
-var StarGoalHandler = function(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime) {
-  this.runningGoalDistance = runningGoalDistance;
-  this.runningGoalTime = runningGoalTime;
-  this.secondaryRunningGoalDistance = secondaryRunningGoalDistance;
-  this.secondaryRunningGoalTime = secondaryRunningGoalTime;
+var StarGoalHandler = function(goalConfig) {
+  this.goalConfig = goalConfig;
 
-  if(runningGoalTime == 0){
-    $("#starGoal").text((runningGoalDistance / 1000) + " km in any time");
-  } else {
-    $("#starGoal").text((runningGoalDistance / 1000) + " km in less than " + (runningGoalTime / 60).toFixed(2) + " min");
-  }
-
-  if(secondaryRunningGoalTime == 0){
-    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000) + " km in any time");
-  } else {
-    $("#secStarGoal").text((secondaryRunningGoalDistance / 1000) + " km in less than " + (secondaryRunningGoalTime / 60).toFixed(2) + " min");
-  }
+  this.setInfoInUI(goalConfig["RUNNING_GOAL"], "RUNNING");
+  this.setInfoInUI(goalConfig["CYCLING_GOAL"], "CYCLING");
 };
 
 StarGoalHandler.prototype.constructor = StarGoalHandler;
 
-StarGoalHandler.prototype.setStarGoalData = function(activitiesData) {
-  var runningActivities = $.grep(activitiesData, function(activity){ return activity.type == "Run"; });
+StarGoalHandler.prototype.setInfoInUI = function(goals, activityType) {
+  if(goals["PRIMARY_TIME"] == 0){
+    $("#starGoal"+activityType.toUpperCase()).text((goals["PRIMARY_DISTANCE"] / 1000) + " km in any time");
+  } else {
+    var activityDurationSeconds = goals["PRIMARY_TIME"] % 60;
+    var activityDurationMinutes = (goals["PRIMARY_TIME"] - activityDurationSeconds) / 60;
+    if(activityDurationSeconds.toString().length == 1){
+      activityDurationSeconds = "0" + activityDurationSeconds;
+    }
+
+    $("#starGoal"+activityType.toUpperCase()).text((goals["PRIMARY_DISTANCE"] / 1000) + " km in less than " + activityDurationMinutes + ":" + activityDurationSeconds + " min");
+  }
+
+  if(goals["SECONDARY_TIME"] == 0){
+    $("#secStarGoal"+activityType.toUpperCase()).text((goals["SECONDARY_DISTANCE"] / 1000) + " km in any time");
+  } else {
+    var activityDurationSeconds = goals["SECONDARY_TIME"] % 60;
+    var activityDurationMinutes = (goals["SECONDARY_TIME"] - activityDurationSeconds) / 60;
+    if(activityDurationSeconds.toString().length == 1){
+      activityDurationSeconds = "0" + activityDurationSeconds;
+    }
+
+    $("#secStarGoal"+activityType.toUpperCase()).text((goals["SECONDARY_DISTANCE"] / 1000) + " km in less than " + activityDurationMinutes + ":" + activityDurationSeconds + " min");
+  }
+}
+
+StarGoalHandler.prototype.setStarsEarnedThisMonth = function(runningActivities, cyclingActivities) {
+  this.setStarsEarnedThisMonthForActivityType(runningActivities, "running");
+  this.setStarsEarnedThisMonthForActivityType(cyclingActivities, "cycling");
+}
+
+StarGoalHandler.prototype.setStarsEarnedThisMonthForActivityType = function(activities, activityType) {
+  var goals = this.goalConfig[activityType.toUpperCase() + "_GOAL"];
 
   var now = new Date();
   var currentMonth = now.getMonth() + 1;
   var currentYear = now.getFullYear();
-  var i, runningActivity, starActivitiesThisMonth = [], secStarActivitiesThisMonth = [];
+  var i, activity, starActivitiesThisMonth = [], secStarActivitiesThisMonth = [];
 
-  for(i=0; i<runningActivities.length; i++) {
-    runningActivity = runningActivities[i];
-    var isCurrentYear = runningActivity.start_date.split('-')[0] == currentYear;
-    var isCurrentMonth = isCurrentYear && runningActivity.start_date.split('-')[1] == currentMonth;
+  for(i = 0; i < activities.length; i++) {
+    activity = activities[i];
+    var isCurrentYear = activity.start_date.split('-')[0] == currentYear;
+    var isCurrentMonth = isCurrentYear && activity.start_date.split('-')[1] == currentMonth;
 
-    var primaryRunningTimeCompleted = (runningActivity.moving_time < (this.runningGoalTime)) || this.runningGoalTime == 0;
-    var secondaryRunningTimeCompleted = (runningActivity.moving_time < (this.secondaryRunningGoalTime)) || this.secondaryRunningGoalTime == 0;
-    if((isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.runningGoalDistance) && primaryRunningTimeCompleted) {
-      starActivitiesThisMonth.push(runningActivities[i]);
-    } else if((isCurrentYear && isCurrentMonth) && (runningActivity.distance > this.secondaryRunningGoalDistance) && secondaryRunningTimeCompleted){
-      secStarActivitiesThisMonth.push(runningActivities[i]);
+    var primaryTimeCompleted = (activity.moving_time < goals["PRIMARY_TIME"]) || goals["PRIMARY_TIME"] == 0;
+    var secondaryTimeCompleted = (activity.moving_time < goals["SECONDARY_TIME"]) || goals["SECONDARY_TIME"] == 0;
+    if((isCurrentYear && isCurrentMonth) && (activity.distance >= goals["PRIMARY_DISTANCE"]) && primaryTimeCompleted) {
+      starActivitiesThisMonth.push(activity);
+    } else if((isCurrentYear && isCurrentMonth) && (activity.distance >= goals["SECONDARY_DISTANCE"]) && secondaryTimeCompleted){
+      secStarActivitiesThisMonth.push(activity);
     }
   }
 
-  $("#starsThisMonth").text(starActivitiesThisMonth.length);
-  $("#secondaryStarsThisMonth").text(secStarActivitiesThisMonth.length);
+  $("#starsThisMonth"+activityType.toUpperCase()).text(starActivitiesThisMonth.length);
+  $("#secondaryStarsThisMonth"+activityType.toUpperCase()).text(secStarActivitiesThisMonth.length);
 }
 
-StarGoalHandler.prototype.getStarContentForRunningActivity = function(activity) {
-  var primaryRunningTimeCompleted = (activity.moving_time < (this.runningGoalTime)) || this.runningGoalTime == 0;
-  var secondaryRunningTimeCompleted = (activity.moving_time < (this.secondaryRunningGoalTime)) || this.secondaryRunningGoalTime == 0;
+StarGoalHandler.prototype.getStarContentForRunningActivity = function(activity, activityType) {
+  var goals = this.goalConfig[activityType.toUpperCase() + "_GOAL"];
 
-  if((activity.distance > this.runningGoalDistance) && primaryRunningTimeCompleted){
+  var primaryTimeCompleted = (activity.moving_time < goals["PRIMARY_TIME"]) || goals["PRIMARY_TIME"] == 0;
+  var secondaryTimeCompleted = (activity.moving_time < goals["SECONDARY_TIME"]) || goals["SECONDARY_TIME"] == 0;
+
+  if((activity.distance >= goals["PRIMARY_DISTANCE"]) && primaryTimeCompleted){
     return " <i class='fa fa-star' aria-hidden='true'></i>";
-  } else if((activity.distance > this.secondaryRunningGoalDistance) && secondaryRunningTimeCompleted){
+  } else if((activity.distance >= goals["SECONDARY_DISTANCE"]) && secondaryTimeCompleted){
     return " <i class='fa fa-star-o' aria-hidden='true'></i>";
   }
 

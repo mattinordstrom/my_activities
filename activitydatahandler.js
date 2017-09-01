@@ -1,19 +1,12 @@
-var ActivityDataHandler = function(runningGoalDistance, runningGoalTime, secondaryRunningGoalDistance, secondaryRunningGoalTime, starGoalHandler) {
-  this.runningGoalDistance = runningGoalDistance;
-  this.runningGoalTime = runningGoalTime;
-  this.secondaryRunningGoalDistance = secondaryRunningGoalDistance;
-  this.secondaryRunningGoalTime = secondaryRunningGoalTime;
+var ActivityDataHandler = function(starGoalHandler) {
   this.starGoalHandler = starGoalHandler;
 };
 
 ActivityDataHandler.prototype.constructor = ActivityDataHandler;
 
-ActivityDataHandler.prototype.setActivityData = function(athleteData, activitiesData) {
+ActivityDataHandler.prototype.setActivityData = function(athleteData, runningActivities, cyclingActivities) {
   $("#bike").text(athleteData.bikes.length > 0 ? athleteData.bikes[0].name : "UNKNOWN");
   $("#shoes").text(athleteData.shoes.length > 0 ? athleteData.shoes[0].name : "UNKNOWN");
-
-  var runningActivities = $.grep(activitiesData, function(activity){ return activity.type == "Run"; });
-  var cyclingActivities = $.grep(activitiesData, function(activity){ return activity.type == "Ride"; });
 
   this.setFiveLatest(runningActivities, cyclingActivities);
 
@@ -30,13 +23,14 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
     //RUNNING
     if(fiveLatestRunningActivities[i]){
       runningContent += this.getActivityString(fiveLatestRunningActivities[i]);
-      runningContent += this.starGoalHandler.getStarContentForRunningActivity(fiveLatestRunningActivities[i]);
+      runningContent += this.starGoalHandler.getStarContentForRunningActivity(fiveLatestRunningActivities[i], "running");
       runningContent += "<br/><br/>";
     }
 
     //CYCLING
     if(fiveLatestCyclingActivities[i]){
       cyclingContent += this.getActivityString(fiveLatestCyclingActivities[i]);
+      cyclingContent += this.starGoalHandler.getStarContentForRunningActivity(fiveLatestCyclingActivities[i], "cycling");
       cyclingContent += "<br/><br/>";
     }
   }
@@ -57,5 +51,5 @@ ActivityDataHandler.prototype.getActivityString = function(activity) {
     activityDurationSeconds = "0" + activityDurationSeconds;
   }
 
-  return activityDate + ": <strong>" + activityDistance + " km</strong> in " + activityDurationMinutes + ":" + activityDurationSeconds;
+  return activityDate + ": <strong>" + activityDistance + " km</strong> in " + activityDurationMinutes + ":" + activityDurationSeconds + " min";
 }
