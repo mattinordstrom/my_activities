@@ -16,7 +16,7 @@ function stripUnnecessaryActivitiesResponseData($data)
     $filteredActivities = [];
     foreach ($data as $activity) {
         $filteredActivity = array_filter($activity, function ($key) {
-            $activityProps = array("distance", "moving_time", "type", "start_date");
+            $activityProps = array("distance", "moving_time", "type", "start_date", "trainer");
 
             return in_array($key, $activityProps);
         }, ARRAY_FILTER_USE_KEY);

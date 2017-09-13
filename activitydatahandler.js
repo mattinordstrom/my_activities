@@ -24,6 +24,9 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
     if(fiveLatestRunningActivities[i]){
       runningContent += this.getActivityString(fiveLatestRunningActivities[i]);
       runningContent += this.starGoalHandler.getStarContentForRunningActivity(fiveLatestRunningActivities[i], "running");
+      if(fiveLatestRunningActivities[i].trainer){
+          runningContent += "<span style='font-size: 10pt; font-weight: bolder'>&nbsp;T</span>";
+      }
       runningContent += "<br/><br/>";
     }
 
@@ -34,6 +37,9 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
       cyclingContent += "<br/><br/>";
     }
   }
+
+  runningContent += "<br/><br/><span style='font-size: 10pt; font-weight: bolder'>T = Treadmill</span>";
+
   $("#running_content").html(runningContent);
   $("#cycling_content").html(cyclingContent);
 }
