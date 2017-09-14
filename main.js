@@ -9,10 +9,10 @@ function init() {
       SECONDARY_TIME: 0 //0 = any time
     },
     CYCLING_GOAL: {
-      PRIMARY_DISTANCE: 15000,
-      PRIMARY_TIME: 3000,
-      SECONDARY_DISTANCE: 20000,
-      SECONDARY_TIME: 0
+      PRIMARY_DISTANCE: 20000,
+      PRIMARY_TIME: 0,
+      SECONDARY_DISTANCE: 15000,
+      SECONDARY_TIME: 3000
     }
   };
 
