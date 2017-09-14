@@ -35,17 +35,19 @@ color: #333333;
 }
 
 .bordered_div_head {
-  border: 6px solid #8EC25D;
+  border: 6px solid #576d42;
   outline: 2px solid #1C053A;
   padding-bottom: 10px;
   padding-left: 20px;
 }
 
 .bordered_div_activity_content {
-  border: 6px solid #5DC0C2;
+  border: 6px solid #588b8c;
   outline: 2px solid #1C053A;
   padding-top: 10px;
   padding-left: 20px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   min-height: 300px;
   font-size: 12pt;
 }
