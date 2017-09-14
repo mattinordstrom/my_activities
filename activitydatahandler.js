@@ -38,24 +38,40 @@ ActivityDataHandler.prototype.setFiveLatest = function(runningActivities, cyclin
     }
   }
 
-  runningContent += "<br/><br/><span style='font-size: 10pt; font-weight: bolder'>T = Treadmill</span>";
 
   $("#running_content").html(runningContent);
   $("#cycling_content").html(cyclingContent);
 }
 
 ActivityDataHandler.prototype.getActivityString = function(activity) {
-  var i, activityDate, activityFullDistanceString, activityDistance, activityDurationMinutes, activityDurationSeconds;
+  var i, activityDate, activityDistance, activityDuration;
 
   activityDate = activity.start_date.slice(0,10);
-  activityFullDistanceString = (activity.distance / 1000).toString();
-  activityDistance = activityFullDistanceString.slice(0, (activityFullDistanceString.indexOf("."))+3);
-  activityDurationSeconds = activity.moving_time % 60;
-  activityDurationMinutes = (activity.moving_time - activityDurationSeconds) / 60
+  activityDistance = this.getFormattedActivityDistance(activity.distance);
+  activityDuration = this.getFormattedActivityDuration(activity.moving_time);
+
+  return activityDate + ": <strong>" + activityDistance + " km</strong> in " + activityDuration + " min";
+}
+
+ActivityDataHandler.prototype.getFormattedActivityDuration = function(duration) {
+  var activityDurationMinutes, activityDurationSeconds;
+
+  activityDurationSeconds = duration % 60;
+  activityDurationMinutes = (duration - activityDurationSeconds) / 60
 
   if(activityDurationSeconds.toString().length == 1){
     activityDurationSeconds = "0" + activityDurationSeconds;
   }
 
-  return activityDate + ": <strong>" + activityDistance + " km</strong> in " + activityDurationMinutes + ":" + activityDurationSeconds + " min";
+  return activityDurationMinutes + ":" + activityDurationSeconds;
+}
+
+ActivityDataHandler.prototype.getFormattedActivityDistance = function(distance) {
+  var activityFullDistanceString = (distance / 1000).toString();
+
+  if(activityFullDistanceString.indexOf(".") == -1){
+    return activityFullDistanceString + ".00";
+  }
+
+  return activityFullDistanceString.slice(0, (activityFullDistanceString.indexOf("."))+3);
 }
