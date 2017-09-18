@@ -82,7 +82,7 @@ SummaryHandler.prototype.getBarColor = function(completedPart) {
   if(completedPart < 0.5){
     return "#ed3704"; //red
   } else if(completedPart < 0.8){
-    return "#e9ed25"; //yellow
+    return "#f2cd13"; //yellow
   }
-  return "#19e812"; //green
+  return "#4fbc73"; //green
 }
