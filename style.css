@@ -37,15 +37,15 @@ color: #333333;
 }
 
 .bordered_div_head {
-  border: 5px solid #333;
-  outline: 2px solid #ed9410;
+  border: 5px solid #666;
+  outline: 2px solid #333;
   padding-bottom: 10px;
   padding-left: 20px;
 }
 
 .bordered_div_activity_content {
-  border: 5px solid #333;
-  outline: 2px solid #588b8c;
+  border: 5px solid #355b5b;
+  outline: 2px solid #333;
   padding-top: 10px;
   padding-left: 20px;
   margin-top: 4px;
@@ -72,10 +72,9 @@ color: #333333;
 }
 
 .bar {
-  border: 1px solid #000000;
-  width: 250px;
-  height: 20px;
-  margin-left: 20px;
+  width: 90px;
+  height: 220px;
+  border-bottom: 1px solid #ccc;
 }
 
 .starInfo, .gearInfo {
@@ -85,4 +84,28 @@ color: #333333;
 
 #running_content, #cycling_content {
   min-height:270px;
+}
+
+.completed_act {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.total_goal_count {
+  font-size: 20px;
+  color: #666;
+  font-weight: bold;
+  float: right;
+}
+
+.bar_row, .count_row{
+  text-align:center;
+  font-weight: bold;
+  color:#333;
+  font-size:14px;
+}
+
+.bar_row td{
+  padding-left:10px;
 }

@@ -23,26 +23,27 @@ SummaryHandler.prototype.setSummaryData = function(athleteData, activitiesData) 
   var activitesYears = activities["activities2Years"];
   var activitesMonths = activities["activities5Months"];
 
-  $("#activitiesThisYear").html("This year: " + activitesYears["activitiesThisYear"].length + "/" + (this.monthlyGoal*12));
-  $("#activitiesLastYear").html("Last year: " + activitesYears["activitiesLastYear"].length + "/" + (this.monthlyGoal*12));
-
-  $("#activitiesThisMonth").html("This month: " + activitesMonths["activitiesThisMonth"].length + "/" + (this.monthlyGoal));
-  $("#activitiesLastMonth").html("Last month: " + activitesMonths["activitiesLastMonth"].length + "/" + (this.monthlyGoal));
   $("#activities2MonthsAgo").html(
     this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 2) + " " +
-    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 2) + ": " +
-    activitesMonths["activities2MonthsAgo"].length + "/" + (this.monthlyGoal)
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 2)
   );
   $("#activities3MonthsAgo").html(
     this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 3) + " " +
-    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 3) + ": " +
-    activitesMonths["activities3MonthsAgo"].length + "/" + (this.monthlyGoal)
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 3)
   );
   $("#activities4MonthsAgo").html(
     this.getPreviousMonthsMonthTitle(currentMonth, currentYear, 4) + " " +
-    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 4) + ": " +
-    activitesMonths["activities4MonthsAgo"].length + "/" + (this.monthlyGoal)
+    this.getPreviousMonthsYearTitle(currentMonth, currentYear, 4)
   );
+
+  $("#activitiesThisYearCount").html(activitesYears["activitiesThisYear"].length);
+  $("#activitiesLastYearCount").html(activitesYears["activitiesLastYear"].length);
+
+  $("#activitiesThisMonthCount").html(activitesMonths["activitiesThisMonth"].length);
+  $("#activitiesLastMonthCount").html(activitesMonths["activitiesLastMonth"].length);
+  $("#activities2MonthsAgoCount").html(activitesMonths["activities2MonthsAgo"].length);
+  $("#activities3MonthsAgoCount").html(activitesMonths["activities3MonthsAgo"].length);
+  $("#activities4MonthsAgoCount").html(activitesMonths["activities4MonthsAgo"].length);
 
   this.setSummaryBars(activitesYears, activitesMonths);
 }
@@ -69,13 +70,13 @@ SummaryHandler.prototype.setSummaryBars = function(activitesYears, activitesMont
 
 SummaryHandler.prototype.setSummaryBar = function(activities, activitiesBarElement, numberOfMonths) {
   var completedPart = activities.length / (this.monthlyGoal * numberOfMonths); //between 0-1
-  var barTotalWidth = activitiesBarElement.width();
-  var barWidth = completedPart * barTotalWidth;
-  barWidth = (barWidth > barTotalWidth) ? barTotalWidth : barWidth;
-
+  if(completedPart > 1){
+    completedPart = 1;
+  }
+  
   var barColor = this.getBarColor(completedPart);
 
-  activitiesBarElement.append('<div style="width:' + barWidth + 'px; height:' + activitiesBarElement.height() + 'px; background-color:' + barColor + '"></div>')
+  activitiesBarElement.append('<div style="position:relative; top:'+ (100-(completedPart*100)) +'%; height:' + (completedPart*100) + '%; background-color:'+barColor+'"></div>');
 }
 
 SummaryHandler.prototype.getBarColor = function(completedPart) {

@@ -15,53 +15,57 @@
 <body onload="init()">
 	<div id="loading"><div id="loadingDivContent" style="margin:40px">LOADING...</div></div>
 		<table style="width:100%; max-width:1000px">
-			<tr><td colspan="3"><div class="title_div">MY ACTIVITIES</div></td></tr>
+			<!--<tr><td colspan="3"><div class="title_div">MY ACTIVITIES</div></td></tr>-->
 			<tr>
 				<td colspan="3">
 					<div class="bordered_div_head">
-						<table>
-							<tr>
-								<td>
-									<span id="summaryName">UNKNOWN NAME</span>
-								</td>
-								<td id="summaryGoalInfo">
-									The goal is set to <span class="monthlyGoal">#</span> total activites per month
-								</td>
+						<span id="summaryName">UNKNOWN NAME</span>
+						<span id="summaryGoalInfo">
+							The goal is set to <span class="monthlyGoal">#</span> total activites per month
+						</span>
+						<br/>
+						<div class="completed_act">COMPLETED ACTIVITIES</div>
+						<table style="padding-left:20px;">
+							<tr class="count_row">
+								<td><div id="totalMonthGoal" class="total_goal_count">8</div></td>
+								<td><div id="activities4MonthsAgoCount"></div></td>
+								<td><div id="activities3MonthsAgoCount"></div></td>
+								<td><div id="activities2MonthsAgoCount"></div></td>
+								<td><div id="activitiesLastMonthCount"></div></td>
+								<td><div id="activitiesThisMonthCount"></div></td>
+								<td><div id="totalYearGoal" class="total_goal_count">96</div></td>
+								<td><div id="activitiesLastYearCount"></div></td>
+								<td><div id="activitiesThisYearCount"></div></td>
 							</tr>
 							<tr>
-								<td colspan="2" style="padding-bottom:10px">
-									<strong>COMPLETED ACTIVITIES</strong>
-								</td>
+								<td></td>
+								<td colspan="5" style="border-top:1px solid #ccc"></td>
+								<td></td>
+								<td colspan="2" style="border-top:1px solid #ccc"></td>
 							</tr>
-							<tr>
-								<td><span id="activitiesThisMonth"></span></td>
-								<td><div class="bar" id="activitiesThisMonthBar"></div></td>
-							</tr>
-							<tr>
-								<td><span id="activitiesLastMonth"></span></td>
-								<td><div class="bar" id="activitiesLastMonthBar"></div></td>
-							</tr>
-							<tr>
-								<td><span id="activities2MonthsAgo"></span></td>
-								<td><div class="bar" id="activities2MonthsAgoBar"></div></td>
-							</tr>
-							<tr>
-								<td><span id="activities3MonthsAgo"></span></td>
-								<td><div class="bar" id="activities3MonthsAgoBar"></div></td>
-							</tr>
-							<tr>
-								<td><span id="activities4MonthsAgo"></span></td>
+							<tr class="bar_row">
+								<td style="width:10px; border-right:1px solid #ccc"></td>
 								<td><div class="bar" id="activities4MonthsAgoBar"></div></td>
-							</tr>
-							<tr colspan="2"><td>&nbsp;</td></tr>
-							<tr>
-								<td><span id="activitiesThisYear"></span></td>
+								<td><div class="bar" id="activities3MonthsAgoBar"></div></td>
+								<td><div class="bar" id="activities2MonthsAgoBar"></div></td>
+								<td><div class="bar" id="activitiesLastMonthBar"></div></td>
+								<td><div class="bar" id="activitiesThisMonthBar"></div></td>
+								<td style="width:60px; border-right:1px solid #ccc"></td>
+								<td><div class="bar" id="activitiesLastYearBar"></div></td>
 								<td><div class="bar" id="activitiesThisYearBar"></div></td>
 							</tr>
-							<tr>
-								<td><span id="activitiesLastYear"></span></td>
-								<td><div class="bar" id="activitiesLastYearBar"></div></td>
+							<tr style="text-align:center; font-weight: bold; color:#666; font-size:14px">
+								<td></td>
+								<td><span id="activities4MonthsAgo">MONTH YEAR</span></td>
+								<td><span id="activities3MonthsAgo">MONTH YEAR</span></td>
+								<td><span id="activities2MonthsAgo">MONTH YEAR</span></td>
+								<td><span id="activitiesLastMonth">Last month</span></td>
+								<td><span id="activitiesThisMonth">This month</span></td>
+								<td></td>
+								<td><span id="activitiesLastYear">Last year</span></td>
+								<td><span id="activitiesThisYear">This year</span></td>
 							</tr>
+
 						</table>
 					</div>
 				</td>
