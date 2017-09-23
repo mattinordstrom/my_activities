@@ -36,15 +36,6 @@ SummaryHandler.prototype.setSummaryData = function(athleteData, activitiesData) 
     this.getPreviousMonthsYearTitle(currentMonth, currentYear, 4)
   );
 
-  $("#activitiesThisYearCount").html(activitesYears["activitiesThisYear"].length);
-  $("#activitiesLastYearCount").html(activitesYears["activitiesLastYear"].length);
-
-  $("#activitiesThisMonthCount").html(activitesMonths["activitiesThisMonth"].length);
-  $("#activitiesLastMonthCount").html(activitesMonths["activitiesLastMonth"].length);
-  $("#activities2MonthsAgoCount").html(activitesMonths["activities2MonthsAgo"].length);
-  $("#activities3MonthsAgoCount").html(activitesMonths["activities3MonthsAgo"].length);
-  $("#activities4MonthsAgoCount").html(activitesMonths["activities4MonthsAgo"].length);
-
   this.setSummaryBars(activitesYears, activitesMonths);
 }
 
@@ -59,24 +50,32 @@ SummaryHandler.prototype.getPreviousMonthsMonthTitle = function(currentMonth, cu
 }
 
 SummaryHandler.prototype.setSummaryBars = function(activitesYears, activitesMonths) {
-  this.setSummaryBar(activitesYears["activitiesThisYear"], $('#activitiesThisYearBar'), 12);
-  this.setSummaryBar(activitesYears["activitiesLastYear"], $('#activitiesLastYearBar'), 12);
-  this.setSummaryBar(activitesMonths["activitiesThisMonth"], $('#activitiesThisMonthBar'), 1);
-  this.setSummaryBar(activitesMonths["activitiesLastMonth"], $('#activitiesLastMonthBar'), 1);
-  this.setSummaryBar(activitesMonths["activities2MonthsAgo"], $('#activities2MonthsAgoBar'), 1);
-  this.setSummaryBar(activitesMonths["activities3MonthsAgo"], $('#activities3MonthsAgoBar'), 1);
-  this.setSummaryBar(activitesMonths["activities4MonthsAgo"], $('#activities4MonthsAgoBar'), 1);
+  this.setSummaryBar("activitiesThisYear", activitesYears, 12);
+  this.setSummaryBar("activitiesLastYear", activitesYears, 12);
+  this.setSummaryBar("activitiesThisMonth", activitesMonths, 1);
+  this.setSummaryBar("activitiesLastMonth", activitesMonths, 1);
+  this.setSummaryBar("activities2MonthsAgo", activitesMonths, 1);
+  this.setSummaryBar("activities3MonthsAgo", activitesMonths, 1);
+  this.setSummaryBar("activities4MonthsAgo", activitesMonths, 1);
 }
 
-SummaryHandler.prototype.setSummaryBar = function(activities, activitiesBarElement, numberOfMonths) {
+SummaryHandler.prototype.setSummaryBar = function(activitiesId, activities, numberOfMonths) {
+  var activities = activities[activitiesId];
+  var activitiesBarElement = $('#'+activitiesId+'Bar');
   var completedPart = activities.length / (this.monthlyGoal * numberOfMonths); //between 0-1
   if(completedPart > 1){
     completedPart = 1;
   }
-  
+
   var barColor = this.getBarColor(completedPart);
 
-  activitiesBarElement.append('<div style="position:relative; top:'+ (100-(completedPart*100)) +'%; height:' + (completedPart*100) + '%; background-color:'+barColor+'"></div>');
+  activitiesBarElement.append(
+    '<div style="position:relative; top:' + (100-(completedPart*100)) + '%; height:' + (completedPart*100) + '%; background-color:' + barColor + '">' +
+      '<div style="height:25px; top:-25px; position:relative;" id="'+activitiesId+'Count"></div>' +
+    '</div>'
+  );
+
+  $('#'+activitiesId+'Count').html(activities.length);
 }
 
 SummaryHandler.prototype.getBarColor = function(completedPart) {
