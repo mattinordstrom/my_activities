@@ -40,14 +40,13 @@ color: #333333;
   border: 5px solid #666;
   outline: 2px solid #333;
   padding-bottom: 10px;
-  padding-left: 20px;
 }
 
 .bordered_div_activity_content {
   border: 5px solid #355b5b;
   outline: 2px solid #333;
   padding-top: 10px;
-  padding-left: 20px;
+  padding-left: 30px;
   margin-top: 4px;
   margin-bottom: 4px;
   min-height: 300px;
@@ -61,6 +60,10 @@ color: #333333;
   margin-bottom: 15px;
 }
 
+#summaryName{
+padding-left: 20px;
+}
+
 #summaryName, .monthlyGoal{
   line-height: 4;
   font-size: 14pt;
@@ -71,10 +74,21 @@ color: #333333;
   padding-left: 40px;
 }
 
-.bar {
-  width: 90px;
+.bar_container {
+  width: 100px;
   height: 220px;
-  border-bottom: 1px solid #ccc;
+}
+
+.bar {
+  position:relative;
+  left:5px;
+  width:90%;
+}
+
+.act_count {
+  height:25px;
+  top:-25px;
+  position:relative;
 }
 
 .starInfo, .gearInfo {
@@ -90,6 +104,7 @@ color: #333333;
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding-left: 20px;
 }
 
 .total_goal_count {
@@ -104,8 +119,4 @@ color: #333333;
   font-weight: bold;
   color:#333;
   font-size:14px;
-}
-
-.bar_row td{
-  padding-left:10px;
 }

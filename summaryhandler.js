@@ -65,13 +65,15 @@ SummaryHandler.prototype.setSummaryBar = function(activitiesId, activities, numb
   var completedPart = activities.length / (this.monthlyGoal * numberOfMonths); //between 0-1
   if(completedPart > 1){
     completedPart = 1;
+  } else if (completedPart == 0){
+    completedPart = 0.01; //Will render a small line
   }
 
   var barColor = this.getBarColor(completedPart);
 
   activitiesBarElement.append(
-    '<div style="position:relative; top:' + (100-(completedPart*100)) + '%; height:' + (completedPart*100) + '%; background-color:' + barColor + '">' +
-      '<div style="height:25px; top:-25px; position:relative;" id="'+activitiesId+'Count"></div>' +
+    '<div class="bar" style="top:' + (100-(completedPart*100)) + '%; height:' + (completedPart*100) + '%; background-color:' + barColor + '">' +
+      '<div class="act_count" id="'+activitiesId+'Count"></div>' +
     '</div>'
   );
 
