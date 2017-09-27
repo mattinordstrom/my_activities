@@ -9,7 +9,7 @@ body {
 h1 {
   color: #373737;
   margin-bottom: 10px;
-  margin-top: 30px;
+  margin-top: 60px;
   font-size: 20pt;
 }
 
@@ -37,13 +37,13 @@ color: #333333;
 }
 
 .bordered_div_head {
-  border: 5px solid #666;
+  border: 5px solid #ccc;
   outline: 2px solid #333;
   padding-bottom: 10px;
 }
 
 .bordered_div_activity_content {
-  border: 5px solid #355b5b;
+  border: 5px solid #ccc;
   outline: 2px solid #333;
   padding-top: 10px;
   padding-left: 30px;
@@ -65,7 +65,7 @@ padding-left: 20px;
 }
 
 #summaryName, .monthlyGoal{
-  line-height: 4;
+  line-height: 48pt;
   font-size: 14pt;
   font-weight: bold;
 }
@@ -91,9 +91,14 @@ padding-left: 20px;
   position:relative;
 }
 
-.starInfo, .gearInfo {
+.starInfo {
   font-size:10pt;
-  line-height:18pt;
+  line-height:20pt;
+}
+
+.gearInfo {
+  font-size:10pt;
+  line-height:28pt;
 }
 
 #running_content, #cycling_content {
@@ -101,10 +106,11 @@ padding-left: 20px;
 }
 
 .completed_act {
+  font-size: 24px;
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 20px;
+  text-align: center;
 }
 
 .total_goal_count {
