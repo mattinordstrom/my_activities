@@ -81,9 +81,9 @@ SummaryHandler.prototype.setSummaryBar = function(activitiesId, activities, numb
 }
 
 SummaryHandler.prototype.getBarColor = function(completedPart) {
-  if(completedPart < 0.5){
+  if(completedPart < 0.6){
     return "#ed3704"; //red
-  } else if(completedPart < 0.8){
+  } else if(completedPart < 1){
     return "#f2cd13"; //yellow
   }
   return "#4fbc73"; //green

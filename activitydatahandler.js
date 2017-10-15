@@ -69,8 +69,10 @@ ActivityDataHandler.prototype.getFormattedActivityDuration = function(duration) 
 ActivityDataHandler.prototype.getFormattedActivityDistance = function(distance) {
   var activityFullDistanceString = (distance / 1000).toString();
 
-  if(activityFullDistanceString.indexOf(".") == -1){
+  if(activityFullDistanceString.indexOf(".") == -1){ //Example: Exactly 3 kilometers
     return activityFullDistanceString + ".00";
+  } else if (activityFullDistanceString.split(".")[1].length == 1){ //Example: Exactly 3.5 kilometers
+    return activityFullDistanceString + "0";
   }
 
   return activityFullDistanceString.slice(0, (activityFullDistanceString.indexOf("."))+3);
